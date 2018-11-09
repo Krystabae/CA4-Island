@@ -29,6 +29,26 @@ public class RawMaterialManagement_AddRawMaterialServlet extends HttpServlet {
             String source = request.getParameter("source");
             System.out.println("source is " + source);
             
+            if (!SKU.startsWith("RM")) {
+                result = "?errMsg=Failed to add raw material, SKU: " + SKU + " has to be in RM'digits' format, 'digits' being an integer > 0.";
+                response.sendRedirect(source + result);
+            }
+            
+            else if (_length < 1) {
+                result = "?errMsg=Failed to add raw material, Length: "  + _length + " must be greater than or equal to 1.";
+                response.sendRedirect(source + result);
+            }
+            
+            else if (width < 1) {
+                result = "?errMsg=Failed to add raw material, Length: "  + width + " must be greater than or equal to 1.";
+                response.sendRedirect(source + result);
+            }
+            
+            else if (height < 1) {
+                result = "?errMsg=Failed to add raw material, Length: "  + height + " must be greater than or equal to 1.";
+                response.sendRedirect(source + result);
+            }
+            
             if (!itemManagementBean.checkSKUExists(SKU)) {
                 itemManagementBean.addRawMaterial(SKU, name, category, description, _length, width, height);
                 result = "?goodMsg=Raw Material with SKU: " + SKU + " has been created successfully.";
