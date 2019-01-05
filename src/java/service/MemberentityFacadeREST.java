@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +34,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -141,6 +143,53 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
         return passwordHash;
     }
 
+    // This GET() method is valled by ECommerce_GetMember
+    @GET
+    @Path("member")
+    @Produces("application/json")
+    public Response getMemberInfo(@QueryParam("memberEmail") String memberEmail) {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345");
+            String sqlStr = "SELECT * FROM memberentity WHERE EMAIL=?";
+            PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+            pstmt.setString(1, memberEmail);
+            ResultSet rs = pstmt.executeQuery();
+            
+            List<Member> memberInfoList = new ArrayList<Member>();
+            while (rs.next()) {
+                long id = rs.getLong("ID");
+                String name = rs.getString("NAME");
+                String email = rs.getString("EMAIL");
+                String phone = rs.getString("PHONE");
+                String city = rs.getString("CITY"); // Labled as "Country" in IslandFurniture User Profile
+                String address = rs.getString("ADDRESS");
+                int securityQuestion = rs.getInt("SECURITYQUESTION");
+                String securityAnswer = rs.getString("SECURITYANSWER");
+                int age = rs.getInt("AGE");
+                int income = rs.getInt("INCOME");
+                
+                int loyaltyPoints = rs.getInt("LOYALTYPOINTS");
+                double cumultativeSpending = rs.getDouble("CUMULATIVESPENDING");
+                
+            
+                Member mb = new Member(id, name, email, phone, city, address, securityQuestion, securityAnswer, 
+                        age, income, loyaltyPoints, cumultativeSpending);
+                memberInfoList.add(mb);
+            }
+            
+            GenericEntity<List<Member>> myEntity = new GenericEntity<List<Member>>(memberInfoList){};
+            
+            return Response
+                    .status(200)
+                    .entity(myEntity)
+                    .build();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
     @GET
     @Path("uploadShoppingList")
     @Produces({"application/json"})

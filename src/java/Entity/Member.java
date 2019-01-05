@@ -18,6 +18,10 @@ public class Member {
     private Integer age;
     private Integer income;
 
+    public Member(long id, String name, String email, String phone, String city, String address, int securityQuestion, String securityAnswer, int age, int income, int loyaltyPoints, double cumultativeSpending) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Long getId() {
         return id;
     }
