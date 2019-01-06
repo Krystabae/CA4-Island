@@ -17,10 +17,30 @@ public class Member {
     private String securityAnswer;
     private Integer age;
     private Integer income;
-
-    public Member(long id, String name, String email, String phone, String city, String address, int securityQuestion, String securityAnswer, int age, int income, int loyaltyPoints, double cumultativeSpending) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Member member;
+    
+    public Member() {
+        
     }
+   
+
+    public Member(long id, String name, String email, String phone, String city, String address, 
+            Integer securityQuestion, String securityAnswer, Integer age, Integer income) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.city = city;
+        this.securityQuestion = securityQuestion;
+        this.securityAnswer = securityAnswer;
+        this.age = age;
+        this.income = income;
+    }
+
+//    public Member(long id, String name, String email, String phone, String city, String address, int securityQuestion, String securityAnswer, Integer age, int income, int loyaltyPoints, double cumultativeSpending) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
     public Long getId() {
         return id;

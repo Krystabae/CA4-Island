@@ -147,38 +147,34 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
     @GET
     @Path("member")
     @Produces("application/json")
-    public Response getMemberInfo(@QueryParam("memberEmail") String memberEmail) {
+    public Response getMember(@QueryParam("memberEmail") String memberEmail) {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345");
-            String sqlStr = "SELECT * FROM memberentity WHERE EMAIL=?";
+            String connURL = "jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345";
+            Connection conn = DriverManager.getConnection(connURL);
+            String sqlStr = "SELECT * FROM memberentity m WHERE m.EMAIL=? and m.ISDELETED=?";
             PreparedStatement pstmt = conn.prepareStatement(sqlStr);
             pstmt.setString(1, memberEmail);
+            pstmt.setInt(2, 0);
             ResultSet rs = pstmt.executeQuery();
-            
-            Member member = null;
-            while (rs.next()) {
+
+            Member m = null;
+
+            if (rs.next()) {
                 long id = rs.getLong("ID");
+                String address = rs.getString("ADDRESS");
                 String name = rs.getString("NAME");
                 String email = rs.getString("EMAIL");
                 String phone = rs.getString("PHONE");
                 String city = rs.getString("CITY"); // Labled as "Country" in IslandFurniture User Profile
-                String address = rs.getString("ADDRESS");
                 int securityQuestion = rs.getInt("SECURITYQUESTION");
                 String securityAnswer = rs.getString("SECURITYANSWER");
                 int age = rs.getInt("AGE");
                 int income = rs.getInt("INCOME");
-                
-                int loyaltyPoints = rs.getInt("LOYALTYPOINTS");
-                double cumultativeSpending = rs.getDouble("CUMULATIVESPENDING");
-                
-            
-                member = new Member(id, name, email, phone, city, address, securityQuestion, securityAnswer, 
-                        age, income, loyaltyPoints, cumultativeSpending);
+                m = new Member(id, name, email, phone, city, address, securityQuestion, securityAnswer, age, income);
             }
-            
-            GenericEntity<Member> myEntity = new GenericEntity<Member>(member){};
+
+            GenericEntity<Member> myEntity = new GenericEntity<Member>(m){};
             conn.close();
-            
             return Response
                     .status(200)
                     .entity(myEntity)

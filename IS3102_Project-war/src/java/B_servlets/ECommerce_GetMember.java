@@ -46,14 +46,17 @@ public class ECommerce_GetMember extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
-            List<CountryEntity> countries = (List<CountryEntity>) session.getAttribute("countries");
-            System.out.println(countries);
+            
             String memberEmail = (String) session.getAttribute("memberEmail");
             
             Member member = getMemberRESTful(memberEmail);
+            String memberName = member.getName();
             
             session.setAttribute("member", member);
             response.sendRedirect("/IS3102_Project-war/B/SG/memberProfile.jsp");
+            
+            session.setAttribute("memberName", memberName);
+            response.sendRedirect("/IS3102_Project-war/B/menu2.jsp");
         }  catch (Exception ex) {
             out.println("\n\n " + ex.getMessage());
         }

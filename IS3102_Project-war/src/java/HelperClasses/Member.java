@@ -23,13 +23,11 @@ public class Member {
         
     }
     
-    public Member(long id, String name, String email, int loyaltyPoints, double cumulativeSpending, String phone, String address,
-            String city, int securityQuestion, String securityAnswer,int age, int income) {
+   public Member(long id, String name, String email, String phone, String city, String address, 
+           Integer securityQuestion, String securityAnswer, Integer age, Integer income) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.loyaltyPoints = loyaltyPoints;
-        this.cumulativeSpending = cumulativeSpending;
         this.phone = phone;
         this.address = address;
         this.city = city;
