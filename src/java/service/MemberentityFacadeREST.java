@@ -155,7 +155,7 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
             pstmt.setString(1, memberEmail);
             ResultSet rs = pstmt.executeQuery();
             
-            List<Member> memberInfoList = new ArrayList<Member>();
+            Member member = null;
             while (rs.next()) {
                 long id = rs.getLong("ID");
                 String name = rs.getString("NAME");
@@ -172,12 +172,13 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
                 double cumultativeSpending = rs.getDouble("CUMULATIVESPENDING");
                 
             
-                Member mb = new Member(id, name, email, phone, city, address, securityQuestion, securityAnswer, 
+                member = new Member(id, name, email, phone, city, address, securityQuestion, securityAnswer, 
                         age, income, loyaltyPoints, cumultativeSpending);
-                memberInfoList.add(mb);
+                //member.add(mb);
             }
             
-            GenericEntity<List<Member>> myEntity = new GenericEntity<List<Member>>(memberInfoList){};
+            GenericEntity<Member> myEntity = new GenericEntity<Member>(member){};
+            conn.close();
             
             return Response
                     .status(200)
