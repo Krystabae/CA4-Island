@@ -22,10 +22,13 @@ public class Member {
     public Member() {
         
     }
-    
-   public Member(long id, String name, String email, String phone, String city, String address, 
-           Integer securityQuestion, String securityAnswer, Integer age, Integer income) {
-        this.id = id;
+
+    public Member(Long getId, String name, String email, String phone, String city, String address, 
+            Integer securityQuestion, String securityAnswer, Integer age, Integer income) {
+        
+    }
+
+    public Member(String name, String email, String phone, String city, String address, int securityQuestion, String securityAnswer, int age, int income) {
         this.name = name;
         this.email = email;
         this.phone = phone;

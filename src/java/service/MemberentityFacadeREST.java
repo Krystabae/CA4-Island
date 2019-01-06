@@ -143,10 +143,11 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
         return passwordHash;
     }
 
-    // This GET() method is valled by ECommerce_GetMember
+    // This GET() method is called by ECommerce_GetMember
     @GET
     @Path("member")
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response getMember(@QueryParam("memberEmail") String memberEmail) {
         try {
             String connURL = "jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345";
@@ -179,6 +180,68 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
                     .status(200)
                     .entity(myEntity)
                     .build();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
+    // Called by ECommerce.MemberEditProfileServlet
+    @PUT
+    @Path("updateMember")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateMember(@QueryParam("member") Member member, @QueryParam("password") String password) {
+        
+        try {
+            // Passing each info into variables before pushing them to mySQL database
+            String name = member.getName();
+            String email = member.getEmail();
+            String phone = member.getPhone();
+            String city = member.getCity();
+            String address = member.getAddress();
+            int securityQuestion = member.getSecurityQuestion();
+            String securityAnswer = member.getSecurityAnswer();
+            int age = member.getAge();
+            int income = member.getIncome();
+        
+            // Generate passwordSalt and passwordHash
+            String passwordSalt = generatePasswordSalt();
+            String passwordHash = generatePasswordHash(passwordSalt, password);
+        
+            String result = "";
+        
+            // Update the SQL database
+            String connURL = "jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345";
+            Connection conn = DriverManager.getConnection(connURL);
+            String sqlStr = ("UPDATE memberentity m SET m.NAME=?, m.PHONE=?, m.CITY=?, m.ADDRESS=?,"
+                    + " m.SECURITYQUESTION=?, m.SECURITYANSWER=?, m.AGE=?, m.INCOME=?, m.PASSWORDSALT=?, m.PASSWORDHASH=? "
+                    + "WHERE M.EMAIL=?;");
+            // PreparedStatements
+            PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+            pstmt.setString(1, name);
+            pstmt.setString(2, phone);
+            pstmt.setString(3, city);
+            pstmt.setString(4, address);
+            pstmt.setInt(5, securityQuestion);
+            pstmt.setString(6, securityAnswer);
+            pstmt.setInt(7, age);
+            pstmt.setInt(8, income);
+            pstmt.setString(9, passwordSalt);
+            pstmt.setString(10, passwordHash);
+            pstmt.setString(11, email);
+            
+            int rec = pstmt.executeUpdate();
+            
+            
+            if (rec > 0) {
+                result = "True";
+            }
+            else {
+                result = "False";
+            }
+            conn.close();
+            return Response.status(200).entity("" + result).build();
             
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -25,7 +25,7 @@ public class Member {
    
 
     public Member(long id, String name, String email, String phone, String city, String address, 
-            Integer securityQuestion, String securityAnswer, Integer age, Integer income) {
+            int securityQuestion, String securityAnswer, int age, int income) {
         this.id = id;
         this.name = name;
         this.email = email;
