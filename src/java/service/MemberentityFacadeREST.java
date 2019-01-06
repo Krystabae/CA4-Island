@@ -174,7 +174,6 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
             
                 member = new Member(id, name, email, phone, city, address, securityQuestion, securityAnswer, 
                         age, income, loyaltyPoints, cumultativeSpending);
-                //member.add(mb);
             }
             
             GenericEntity<Member> myEntity = new GenericEntity<Member>(member){};

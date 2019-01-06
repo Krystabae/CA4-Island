@@ -17,7 +17,7 @@ public class Member {
     private String securityAnswer;
     private Integer age;
     private Integer income;
-    public Member member;
+    public static Member member = new Member();
     
     public Member() {
         
