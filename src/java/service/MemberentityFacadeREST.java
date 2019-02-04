@@ -191,13 +191,16 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
     // "WARNING: No injection source found for a parameter of type public javax.ws.rs.core.Response service.MemberentityFacadeREST.updateMember(Entity.Member,java.lang.String) at index 0."
     // An attempt to test WebService using Postman only returned a Status 403 Forbidden (shown by screenshot of Postman)
     // Method called by ECommerce.MemberEditProfileServlet
-//    @PUT
-//    @Path("updateMember")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response updateMember(@QueryParam("member") Member member, @QueryParam("password") String password) {
-//        
-//        try {
-//            // Passing each info into variables before pushing them to mySQL database
+    @PUT
+    @Path("updateMember")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateMember(@QueryParam("name") String name, @QueryParam("email") String email, @QueryParam("phone") String phone, 
+            @QueryParam("city") String city, @QueryParam("address") String address, 
+            @QueryParam("securityQuestion") Integer securityQuestion, @QueryParam("securityAnswer") String securityAnswer, 
+            @QueryParam("age") Integer age, @QueryParam("income") Integer income, @QueryParam("password") String password) {
+        
+        try {
+            // Passing each info into variables before pushing them to mySQL database
 //            String name = member.getName();
 //            String email = member.getEmail();
 //            String phone = member.getPhone();
@@ -207,50 +210,89 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
 //            String securityAnswer = member.getSecurityAnswer();
 //            int age = member.getAge();
 //            int income = member.getIncome();
-//        
-//            // Generate passwordSalt and passwordHash
-//            String passwordSalt = generatePasswordSalt();
-//            String passwordHash = generatePasswordHash(passwordSalt, password);
-//        
-//            String result = "";
-//        
-//            // Update the SQL database
-//            String connURL = "jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345";
-//            Connection conn = DriverManager.getConnection(connURL);
-//            String sqlStr = ("UPDATE memberentity m SET m.NAME=?, m.PHONE=?, m.CITY=?, m.ADDRESS=?,"
-//                    + " m.SECURITYQUESTION=?, m.SECURITYANSWER=?, m.AGE=?, m.INCOME=?, m.PASSWORDSALT=?, m.PASSWORDHASH=? "
-//                    + "WHERE M.EMAIL=?;");
-//            // PreparedStatements
-//            PreparedStatement pstmt = conn.prepareStatement(sqlStr);
-//            pstmt.setString(1, name);
-//            pstmt.setString(2, phone);
-//            pstmt.setString(3, city);
-//            pstmt.setString(4, address);
-//            pstmt.setInt(5, securityQuestion);
-//            pstmt.setString(6, securityAnswer);
-//            pstmt.setInt(7, age);
-//            pstmt.setInt(8, income);
-//            pstmt.setString(9, passwordSalt);
-//            pstmt.setString(10, passwordHash);
-//            pstmt.setString(11, email);
-//            
-//            int rec = pstmt.executeUpdate();
-//            
-//            
-//            if (rec > 0) {
-//                result = "True";
-//            }
-//            else {
-//                result = "False";
-//            }
-//            conn.close();
-//            return Response.status(200).entity("" + result).build();
-//            
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            return null;
-//        }
-//    }
+            
+            String passwordSalt = "";
+            String passwordHash = "";
+            
+            if (!password.equals("")) {
+                // Generate passwordSalt and passwordHash
+                passwordSalt = generatePasswordSalt();
+                passwordHash = generatePasswordHash(passwordSalt, password);
+            }
+        
+            String result = "";
+            
+            // Checking if change password field is empty or not, then the corresponding block of code will be executed:
+
+
+
+            if (passwordSalt.equals("") || passwordHash.equals("")) {
+                // Update the SQL database
+                String connURL = "jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345";
+                Connection conn = DriverManager.getConnection(connURL);
+                String sqlStr = ("UPDATE memberentity m SET m.NAME=?, m.PHONE=?, m.CITY=?, m.ADDRESS=?,"
+                        + " m.SECURITYQUESTION=?, m.SECURITYANSWER=?, m.AGE=?, m.INCOME=? WHERE m.EMAIL=?;");
+                // PreparedStatements
+                PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+                pstmt.setString(1, name);
+                pstmt.setString(2, phone);
+                pstmt.setString(3, city);
+                pstmt.setString(4, address);
+                pstmt.setInt(5, securityQuestion);
+                pstmt.setString(6, securityAnswer);
+                pstmt.setInt(7, age);
+                pstmt.setInt(8, income);
+                pstmt.setString(9, email);
+            
+                int rec = pstmt.executeUpdate();
+                
+                if (rec > 0) {
+                    result = "True";
+                }
+                else {
+                    result = "False";
+                }
+                conn.close();
+                
+            } else {
+                // Update the SQL database
+                String connURL = "jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345";
+                Connection conn = DriverManager.getConnection(connURL);
+                String sqlStr = ("UPDATE memberentity m SET m.NAME=?, m.PHONE=?, m.CITY=?, m.ADDRESS=?,"
+                        + " m.SECURITYQUESTION=?, m.SECURITYANSWER=?, m.AGE=?, m.INCOME=?, m.PASSWORDSALT=?, m.PASSWORDHASH=? "
+                        + "WHERE m.EMAIL=?;");
+                // PreparedStatements
+                PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+                pstmt.setString(1, name);
+                pstmt.setString(2, phone);
+                pstmt.setString(3, city);
+                pstmt.setString(4, address);
+                pstmt.setInt(5, securityQuestion);
+                pstmt.setString(6, securityAnswer);
+                pstmt.setInt(7, age);
+                pstmt.setInt(8, income);
+                pstmt.setString(9, passwordSalt);
+                pstmt.setString(10, passwordHash);
+                pstmt.setString(11, email);
+            
+                int rec = pstmt.executeUpdate();
+                
+                if (rec > 0) {
+                    result = "True";
+                }
+                else {
+                    result = "False";
+                }
+                conn.close();
+            
+            }
+            return Response.status(200).entity("" + result).build();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
     
     @GET
     @Path("uploadShoppingList")

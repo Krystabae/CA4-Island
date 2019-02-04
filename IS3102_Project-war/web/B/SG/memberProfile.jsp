@@ -49,7 +49,6 @@
                 </div>
             </section>
             <div class="container">
-                <%%>
                 <jsp:include page="/displayMessageLong.jsp" />
                 <!-- /.warning -->
                 <div class="col-md-12">

@@ -45,7 +45,7 @@ public class ECommerce_MemberEditProfileServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HttpSession session = request.getSession();
             
-            Member m = null;
+            Member member = null;
             // Passing all the form values into variables
             String name = request.getParameter("name");
             String email = request.getParameter("email");
@@ -56,29 +56,41 @@ public class ECommerce_MemberEditProfileServlet extends HttpServlet {
             String securityAnswer = request.getParameter("securityAnswer");
             int age = Integer.parseInt(request.getParameter("age"));
             int income = Integer.parseInt(request.getParameter("income"));
-            m = new Member(name, email, phone, city, address, securityQuestion, securityAnswer, age, income);
             
+            member = new Member(name, email, phone, city, address, securityQuestion, securityAnswer, age, income);
+                    
             String password = request.getParameter("repassword");
             
-            String status = updateMember(member, password); // Pass info into Servlet and vice versa
+            String status = updateMember(name, email, phone, city, address, securityQuestion, securityAnswer, age, income, password); // Pass info into Servlet and vice versa
             
             if(status.equals("True")) {
                 result = "Account updated successfully.";
+                session.setAttribute("member", member);
                 response.sendRedirect("/IS3102_Project-war/B/SG/memberProfile.jsp?goodMsg=" + result);
             } else {
                 result = "Failed to update account. Please try again.";
+                session.setAttribute("member", member);
                 response.sendRedirect("/IS3102_Project-war/B/SG/memberProfile.jsp?errMsg=" + result);
             }
         }
     }
     
-    public String updateMember(Member member, String password) {
+    public String updateMember(String name, String email, String phone, String city, String address, Integer securityQuestion, 
+            String securityAnswer, Integer age, Integer income, String password) {
         
         Client client = ClientBuilder.newClient();
         WebTarget target = client
                 .target("http://localhost:8080/IS3102_WebService-Student/webresources/entity.memberentity")
                 .path("updateMember")
-                .queryParam("member", member)
+                .queryParam("name", name)
+                .queryParam("email", email)
+                .queryParam("phone", phone)
+                .queryParam("city", city)
+                .queryParam("address", address)
+                .queryParam("securityQuestion", securityQuestion)
+                .queryParam("securityAnswer", securityAnswer)
+                .queryParam("age", age)
+                .queryParam("income", income)
                 .queryParam("password", password);
         
         Invocation.Builder invocationBuilder = target.request(MediaType.APPLICATION_JSON);
