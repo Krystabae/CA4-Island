@@ -49,13 +49,13 @@
                 </div>
             </section>
             <div class="container">
+                <%%>
                 <jsp:include page="/displayMessageLong.jsp" />
                 <!-- /.warning -->
                 <div class="col-md-12">
                     <%
                         try {
                             Member member = (Member) session.getAttribute("member");
-                            System.out.print(member);
                             DecimalFormat df = new DecimalFormat("#.##");
                     %>
                     <div class="row" style="min-height: 500px;">
@@ -74,19 +74,19 @@
                             <div class="tab-content">
                                 <div id="overview" class="tab-pane active">
                                     <%if (member != null) {%>
-                                    <form role="form" action="../../ECommerce_MemberEditProfileServlet" onsubmit="return validatePassword()"/>
+                                    <form role="form" action="../../ECommerce_MemberEditProfileServlet" onsubmit="return validatePassword()">
                                         <h4>Personal Information</h4>
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input class="form-control" required="true" name="name" type="text" value="<%=member.getName()%>"/>
+                                            <input class="form-control" required="true" name="name" type="text" value="">
                                         </div>
                                         <div class="form-group">
                                             <label>E-mail Address</label>
-                                            <input class="form-control" required="true" value="<%=member.getEmail()%>" disabled/>
+                                            <input class="form-control" required="true" value="" disabled/>
                                         </div>
                                         <div class="form-group">
                                             <label>Phone</label>
-                                            <input class="form-control" required="true" type="text" name="phone" value="<%=member.getPhone()%>"/>
+                                            <input class="form-control" required="true" type="text" name="phone" value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Country</label>
@@ -348,7 +348,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <input class="form-control" type="text" required="true" name="address" value="<%=member.getAddress()%>"/>
+                                            <input class="form-control" type="text" required="true" name="address" value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Set Challenge Question</label>
@@ -373,28 +373,28 @@
                                                     out.println("");
                                                 } else {
                                                     out.println(member.getSecurityAnswer());
-                                                }%>"/>
+                                                }%>">
                                         </div>
                                         <div class="form-group">
                                             <label>Age</label>
-                                            <input class="form-control" name="age" step="1" type="number" min="1" max="150" value="<%=member.getAge()%>"/>
+                                            <input class="form-control" name="age" step="1" type="number" min="1" max="150" value="">
                                         </div>
                                         <div class="form-group">
                                             <label>Income per annum (in USD)</label>
-                                            <input class="form-control" name="income" step="1" type="number" min="0" max="2147483646" value="<%=member.getIncome()%>"/>
+                                            <input class="form-control" name="income" step="1" type="number" min="0" max="2147483646" value="">
                                         </div>
                                         <div class="form-group">
-                                            <input type="checkbox" name="serviceLevelAgreement"/> Allow us to use your particulars to serve you better?<br/>Checking the box above indicates that you agree to our <a onclick="pdpaWindow()">personal data protection policy.</a>
+                                            <input type="checkbox" name="serviceLevelAgreement"> Allow us to use your particulars to serve you better?<br/>Checking the box above indicates that you agree to our <a onclick="pdpaWindow()">personal data protection policy.</a>
                                         </div>
                                         <hr class="more-spaced "/>
                                         <h4>Change Password</h4>
                                         <div class="form-group">
                                             <label>New Password (leave blank unless setting a new password).<br/>Password to be at least 8 characters long.</label>
-                                            <input class="form-control" type="password" name="password" id="password"/>
+                                            <input class="form-control" type="password" name="password" id="password">
                                         </div>
                                         <div class="form-group">
                                             <label>Re-enter New Password</label>
-                                            <input class="form-control" type="password"  name="repassword" id="repassword"/>
+                                            <input class="form-control" type="password"  name="repassword" id="repassword">
                                         </div>
                                         <div class="panel-footer" style="padding-bottom: 0px;">
                                             <div class="row">

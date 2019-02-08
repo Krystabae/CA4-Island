@@ -10,6 +10,20 @@ public class RetailProduct {
     private String type;
     private String category;
     private Double price;
+    
+    public RetailProduct() {
+        
+    }
+    public RetailProduct(Long id, String name, String imageUrl, String SKU, String description, String type, String category, Double price) {
+        this.id = id;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.SKU = SKU;
+        this.description = description;
+        this.type = type;
+        this.category = category;
+        this.price = price;
+    }
 
     public Double getPrice() {
         return price;

@@ -21,6 +21,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Stateless
@@ -85,6 +86,47 @@ public class RetailproductentityFacadeREST extends AbstractFacade<Retailproducte
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+    @GET
+    @Path("getRetailProductList")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRetailProductsList(@QueryParam("countryID") Long countryID) {
+        try {
+            String connURL = "jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345";
+            Connection conn = DriverManager.getConnection(connURL);
+            String sqlStr = "select * from itementity\n" +
+                "inner join item_countryentity on itementity.ID = item_countryentity.ITEM_ID\n" +
+                "inner join retailproductentity on itementity.ID = retailproductentity.ID\n" +
+                "where item_countryentity.COUNTRY_ID=? and itementity.DTYPE='RetailProductEntity';";
+            PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+            pstmt.setLong(1,countryID);
+            
+            ResultSet rs = pstmt.executeQuery();
+            List<RetailProduct> list = new ArrayList();
+            while (rs.next()) {
+                RetailProduct rp;
+                rp = new RetailProduct(
+                        rs.getLong("ID"),
+                        rs.getString("NAME"),
+                        rs.getString("IMAGEURL"),
+                        rs.getString("SKU"),
+                        rs.getString("DESCRIPTION"),
+                        rs.getString("TYPE"),
+                        rs.getString("CATEGORY"),
+                        rs.getDouble("RETAILPRICE"));
+                        
+                list.add(rp);
+            }
+            
+            GenericEntity<List<RetailProduct>> myEntity = new GenericEntity<List<RetailProduct>>(list){};
+            conn.close();
+            return Response.status(200).entity(myEntity).build();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
 }

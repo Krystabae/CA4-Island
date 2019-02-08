@@ -38,9 +38,6 @@ public class Member {
         this.income = income;
     }
 
-//    public Member(long id, String name, String email, String phone, String city, String address, int securityQuestion, String securityAnswer, Integer age, int income, int loyaltyPoints, double cumultativeSpending) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
 
     public Long getId() {
         return id;

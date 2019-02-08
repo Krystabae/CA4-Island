@@ -1,7 +1,6 @@
 package HelperClasses;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Member {
 
@@ -17,29 +16,7 @@ public class Member {
     private String securityAnswer;
     private Integer age;
     private Integer income;
-    public static Member member = new Member();
-    
-    public Member() {
-        
-    }
 
-    public Member(Long getId, String name, String email, String phone, String city, String address, 
-            Integer securityQuestion, String securityAnswer, Integer age, Integer income) {
-        
-    }
-
-    public Member(String name, String email, String phone, String city, String address, int securityQuestion, String securityAnswer, int age, int income) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.city = city;
-        this.securityQuestion = securityQuestion;
-        this.securityAnswer = securityAnswer;
-        this.age = age;
-        this.income = income;
-    }
- 
     public Long getId() {
         return id;
     }

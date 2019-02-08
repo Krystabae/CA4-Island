@@ -191,8 +191,8 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
     // "WARNING: No injection source found for a parameter of type public javax.ws.rs.core.Response service.MemberentityFacadeREST.updateMember(Entity.Member,java.lang.String) at index 0."
     // An attempt to test WebService using Postman only returned a Status 403 Forbidden (shown by screenshot of Postman)
     // Method called by ECommerce.MemberEditProfileServlet
-    @PUT
-    @Path("updateMember")
+    @POST
+    @Path("editMember")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateMember(@QueryParam("name") String name, @QueryParam("email") String email, @QueryParam("phone") String phone, 
             @QueryParam("city") String city, @QueryParam("address") String address, 
@@ -200,17 +200,6 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
             @QueryParam("age") Integer age, @QueryParam("income") Integer income, @QueryParam("password") String password) {
         
         try {
-            // Passing each info into variables before pushing them to mySQL database
-//            String name = member.getName();
-//            String email = member.getEmail();
-//            String phone = member.getPhone();
-//            String city = member.getCity();
-//            String address = member.getAddress();
-//            int securityQuestion = member.getSecurityQuestion();
-//            String securityAnswer = member.getSecurityAnswer();
-//            int age = member.getAge();
-//            int income = member.getIncome();
-            
             String passwordSalt = "";
             String passwordHash = "";
             
