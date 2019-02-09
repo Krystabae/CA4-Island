@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import javax.ws.rs.*;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -87,7 +88,38 @@ public class CountryentityFacadeREST extends AbstractFacade<Countryentity> {
         return countryList;
     }
     
-    
+    @GET
+    @Path("getQuantity")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getQuantity(@QueryParam("countryID") Long countryID, @QueryParam("SKU") String SKU) {
+        try {
+            String connURL = "jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345";
+            Connection conn = DriverManager.getConnection(connURL);
+            String sqlStr = "select lineitementity.QUANTITY from lineitementity\n" +
+                "inner join item_countryentity on lineitementity.ITEM_ID = item_countryentity.ITEM_ID\n" +
+                "inner join itementity on lineitementity.ITEM_ID = itementity.ID\n" +
+                "where  item_countryentity.COUNTRY_ID=? and itementity.SKU=?;";
+            
+            PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+            pstmt.setLong(1, countryID);
+            pstmt.setString(2, SKU);
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            String getQuantity = "";
+            if (rs.next()) {
+                getQuantity = rs.getString("QUANTITY");
+            }
+            //GenericEntity<Integer> myEntity = new GenericEntity<Integer>(getQuantity){};
+            conn.close();
+            
+            return Response.status(200).entity("" + getQuantity).build();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
     
     @Override
     protected EntityManager getEntityManager() {

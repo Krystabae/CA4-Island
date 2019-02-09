@@ -2,6 +2,24 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/src/java/B_servlets/ECommerce_AllFurnituresServlet.java</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/web/B/SG/furnitureCategory.jsp</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/web/B/SG/allRetailProducts.jsp</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/src/java/B_servlets/ECommerce_PlusFurnitureToListServlet.java</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/src/java/B_servlets/ECommerce_AddFurnitureToListServlet.java</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/src/java/HelperClasses/Furniture.java</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/src/java/B_servlets/ECommerce_MemberLoginServlet.java</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/web/B/SG/memberLogin.jsp</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/src/java/HelperClasses/ShoppingCartLineItem.java</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/web/B/SG/shoppingCart.jsp</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/web/B/SG/allFurnitures.jsp</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/src/java/B_servlets/ECommerce_MinusFurnitureToListServlet.java</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/web/B/SG/memberProfile.jsp</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/src/java/B_servlets/ECommerce_AllRetailProductsServlet.java</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/src/java/B_servlets/ECommerce_RemoveFurnitureToListServlet.java</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/web/B/SG/index.jsp</file>
+            <file>file:/C:/CA4_SEP/IslandFurniture_Enterprise-Student/IslandFurniture_Enterprise-Student/IS3102_Project-war/src/java/B_servlets/ECommerce_FurnitureCategoryServlet.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>SKU</label>
-                                    <input class="form-control" required="true" type="text" name="SKU">
+                                    <input class="form-control" required="true" type="text" pattern="[R][M]([1-9]|[1-9][0-9]+)" name="SKU" title="Format is RM#. # refers to an integer > 0.">
                                 </div>
                                 <div class="form-group">
                                     <label>Length per item</label>

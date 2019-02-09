@@ -164,7 +164,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="get-started">
-                                    <a href="#" class="btn btn-lg btn-primary">Get Started Now!</a>
+                                    <a href="../../ECommerce_AllFurnituresServlet" class="btn btn-lg btn-primary">Get Started Now!</a>
                                     <div class="learn-more">or <a href="#">learn more.</a></div>
                                 </div>
                             </div>
