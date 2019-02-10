@@ -187,9 +187,6 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
         }
     }
     
-    // When this method is active and not commented out, it causes errors with GlassFish during WebService deployment:
-    // "WARNING: No injection source found for a parameter of type public javax.ws.rs.core.Response service.MemberentityFacadeREST.updateMember(Entity.Member,java.lang.String) at index 0."
-    // An attempt to test WebService using Postman only returned a Status 403 Forbidden (shown by screenshot of Postman)
     // Method called by ECommerce.MemberEditProfileServlet
     @POST
     @Path("editMember")
@@ -280,6 +277,34 @@ public class MemberentityFacadeREST extends AbstractFacade<Memberentity> {
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
+        }
+    }
+    
+    @GET
+    @Path("getMemberID")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMemberID(@QueryParam("email") String email) {
+        try {
+            String connURL = "jdbc:mysql://localhost:3306/islandfurniture-it07?zeroDateTimeBehavior=convertToNull&user=root&password=12345";
+            Connection conn = DriverManager.getConnection(connURL);
+            String sqlStr = "select m.ID from memberentity m where m.EMAIL=?;";
+            
+            PreparedStatement pstmt = conn.prepareStatement(sqlStr);
+            pstmt.setString(1, email);
+            
+            ResultSet rs = pstmt.executeQuery();
+            
+            String memberID = "";
+            if (rs.next()) {
+                memberID = rs.getString("ID");
+            }
+            conn.close();
+            
+            return Response.status(200).entity("" + memberID).build();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
     
