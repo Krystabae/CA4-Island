@@ -36,11 +36,11 @@ public class ECommerce_MinusFurnitureToListServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        String result = "";
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             ArrayList<ShoppingCartLineItem> shoppingCart = (ArrayList<ShoppingCartLineItem>) (session.getAttribute("shoppingCart"));
             String SKU = request.getParameter("SKU");
-            String result;
             int quantity = 0;
             
             if (shoppingCart != null && shoppingCart.size() > 0) {
@@ -69,7 +69,7 @@ public class ECommerce_MinusFurnitureToListServlet extends HttpServlet {
             
         } catch (Exception e) {
             e.printStackTrace();
-            String result = "Due to an error, item quantity is not reduced.";
+            result = "Due to an error, item quantity is not reduced.";
             response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?goodMsg=" + result);
         }
     }

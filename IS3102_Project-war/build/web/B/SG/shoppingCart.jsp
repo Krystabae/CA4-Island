@@ -19,7 +19,7 @@
             for (var i = 0, n = shoppingCart.getItems().size; i < n; i++) {
                 totalPrice += shoppingCart.getItems().get(i).get
             }
-            function removeItem() {
+            function removeItem(SKU) {
                 checkboxes = document.getElementsByName('delete');
                 var numOfTicks = 0;
                 for (var i = 0, n = checkboxes.length; i < n; i++) {
@@ -145,7 +145,7 @@
                                                             </td>
                                                             <td class="product-price">
                                                                 $<span class="amount" id="price<%=item.getPrice()%>">
-                                                                    <%=item.getPrice()%>
+                                                                    <%=item.getPrice()%>0
                                                                 </span>
                                                             </td>
                                                             <td class="product-quantity">
@@ -164,7 +164,7 @@
                                                                     total += subtotal;
                                                                 %>
                                                                 $<span class="amount" id="totalPrice<%=item.getSKU()%>">
-                                                                    <%=subtotal%>
+                                                                    <%=subtotal%>0
                                                                 </span>
                                                             </td>
                                                         </tr>
@@ -184,7 +184,7 @@
                                                             </td>
                                                             <td class="product-subtotal">
                                                                 $<span class="amount" id="finalPrice" name="finalPrice">
-                                                                    <%=total%>
+                                                                    <%=total%>0
                                                                 </span>
                                                             </td>
                                                         </tr>

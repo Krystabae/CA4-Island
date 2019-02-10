@@ -41,26 +41,32 @@ public class ECommerce_PlusFurnitureToListServlet extends HttpServlet {
             ArrayList<ShoppingCartLineItem> shoppingCart = (ArrayList<ShoppingCartLineItem>) (session.getAttribute("shoppingCart"));
             String SKU = request.getParameter("SKU");
             String result;
+            int arrIndex = 0;
             int quantity = 0;
             
             if (shoppingCart != null && shoppingCart.size() > 0) {
                 for (ShoppingCartLineItem item : shoppingCart) {
                     quantity = item.getQuantity();
                     
-                    
+                    arrIndex = shoppingCart.indexOf(SKU);
                 }
             }
             quantity++;
-            int arrIndex = shoppingCart.indexOf(SKU);
-            shoppingCart.get(arrIndex).setQuantity(quantity);
-            session.setAttribute("shoppingCart", shoppingCart);
+            if (arrIndex >= 0) {
+                shoppingCart.get(arrIndex).setQuantity(quantity);
+                session.setAttribute("shoppingCart", shoppingCart);
                 
-            result = "Item quantity increased successfully!";
-            response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?goodMsg=" + result);
+                result = "Item quantity increased successfully!";
+                response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?goodMsg=" + result);
+            } else {
+                result = "Due to an error, item quantity is not increased.";
+                response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?errMsg=" + result);
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
             String result = "Due to an error, item quantity is not increased.";
-            response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?goodMsg=" + result);
+            response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?errMsg=" + result);
         }
     }
 

@@ -58,23 +58,44 @@ public class ECommerce_AddFurnitureToListServlet extends HttpServlet {
             
             int getQuantity = getLineItemAvailabilityListRESTful(countryID, SKU);
             String result = "";
+            ArrayList<ShoppingCartLineItem> shoppingCart = (ArrayList<ShoppingCartLineItem>) (session.getAttribute("shoppingCart"));
             
-            ArrayList<ShoppingCartLineItem> shoppingCart = new ArrayList();
+            if (shoppingCart == null || shoppingCart.size() < 1) {
+                shoppingCart = new ArrayList();
             
-            int size = shoppingCart.size();
-            if ((size + quantity) <= getQuantity) {
-                ShoppingCartLineItem s = new ShoppingCartLineItem(id, SKU, name, imageURL, price, quantity, countryID);
-                shoppingCart.add(s);
+                int size = shoppingCart.size();
+                if ((size + quantity) <= getQuantity) {
+                    ShoppingCartLineItem s = new ShoppingCartLineItem(id, SKU, name, imageURL, price, quantity, countryID);
+                    shoppingCart.add(s);
                 
-                session.setAttribute("shoppingCart", shoppingCart);
+                    session.setAttribute("shoppingCart", shoppingCart);
                 
-                result = "Item successfully added into the cart!";
-                response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?goodMsg=" + result);
+                    result = "Item successfully added into the cart!";
+                    response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?goodMsg=" + result);
+                }
+                else {
+                    result = "There is insufficient quantity of item ''"+ name +"'' in the storage bin. Item is not added to cart.";
+                    response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?errMsg=" + result);
+                }
+            } else {
+                int size = shoppingCart.size();
+                if ((size + quantity) <= getQuantity) {
+                    ShoppingCartLineItem s = new ShoppingCartLineItem(id, SKU, name, imageURL, price, quantity, countryID);
+                    shoppingCart.add(s);
+                
+                    session.setAttribute("shoppingCart", shoppingCart);
+                
+                    result = "Item successfully added into the cart!";
+                    response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?goodMsg=" + result);
+                }
+                else {
+                    result = "There is insufficient quantity of item ''"+ name +"'' in the storage bin. Item is not added to cart.";
+                    response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?errMsg=" + result);
+                }
             }
-            else {
-                result = "There is not enough quantity of item ''"+ name +"'' in the storage bin. Item is not added to cart.";
-                response.sendRedirect("/IS3102_Project-war/B/SG/shoppingCart.jsp?errMsg=" + result);
-            }
+            
+            
+            
             
             
             
